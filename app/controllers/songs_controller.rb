@@ -24,8 +24,24 @@ class SongsController < ApplicationController
     end
   end
 
+  # def new
+  #   @song = Song.new
+
+  #   # if params[:artist_id] && !Artist.exists?(params[:artist_id])
+  #   #   redirect_to artists_path, alert: "artist not found."
+  #   # else
+  #   #   @song = Song.new(artist_id: params[:artist_id])
+  #   # end
+
+  # end
+
   def new
+    @preference = Preference.first
+    if @preference.allow_create_songs
     @song = Song.new
+    else
+      redirect_to songs_path
+    end 
   end
 
   def create
